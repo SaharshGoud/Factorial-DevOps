@@ -11,13 +11,19 @@ pipeline {
 
         stage('Run Factorial') {
             steps {
-                sh 'docker run --rm -v "$WORKSPACE:/app" -w /app python:3.12-slim python factorial.py 5'
+                sh 'python3 factorial.py 5'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t factorial-app .'
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                sh 'docker run --rm factorial-app'
             }
         }
 
@@ -28,4 +34,3 @@ pipeline {
         }
     }
 }
-

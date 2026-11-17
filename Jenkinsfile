@@ -3,7 +3,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -12,7 +11,7 @@ pipeline {
 
         stage('Run Factorial') {
             steps {
-                sh 'python3 factorial.py 5'
+                sh 'docker run --rm -v "$WORKSPACE:/app" -w /app python:3.12-slim python factorial.py 5'
             }
         }
 
